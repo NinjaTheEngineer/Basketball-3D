@@ -3,21 +3,8 @@ using UnityEngine;
 
 namespace NinjaTools {
     public abstract class BaseState<EState> where EState : Enum {
-        private PlayerStateMachine.PlayerState key;
-
-        public BaseState(StateManager<EState> stateMachine, EState key) {
-            var logId = "BaseState_ctor";
-            if(stateMachine==null) {
-                Utils.logw(logId, "StateMachine is null => no-op");
-                return;
-            }
-            StateMachine = stateMachine;
+        public BaseState(EState key) {
             StateKey = key;
-        }
-
-        protected BaseState(PlayerStateMachine.PlayerState key)
-        {
-            this.key = key;
         }
 
         public StateManager<EState> StateMachine { get; private set; }

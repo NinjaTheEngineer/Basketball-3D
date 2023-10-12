@@ -29,8 +29,10 @@ namespace NinjaTools {
         }
 
         public void TransitionToState(EState stateKey) {
+            var logId = "TransitionToState";
             IsTransitioningState = true;
             CurrentState.ExitState();
+            logd(logId, "CurrentState="+CurrentState.StateKey+" TransitionTo="+stateKey);
             CurrentState = States[stateKey];
             CurrentState.EnterState();
             OnStateChange(stateKey);

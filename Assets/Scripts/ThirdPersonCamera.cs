@@ -11,7 +11,10 @@ public class ThirdPersonCamera : NinjaMonoBehaviour {
     public Rigidbody rb;
 
     public float rotationSpeed;
-
+    private void Awake() {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
     void Update() {
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;

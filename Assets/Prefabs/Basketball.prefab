@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 565093007404756733}
   - component: {fileID: 3873219270857471794}
-  - component: {fileID: -4722037113395758283}
   - component: {fileID: 7136826859521539720}
+  - component: {fileID: -4722037113395758283}
   m_Layer: 0
   m_Name: Basketball
   m_TagString: Untagged
@@ -58,22 +58,10 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 1
-  m_Interpolate: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &-4722037113395758283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8293010826696424884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 709fa36f68f124844972c816ef9c04e7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_CollisionDetection: 1
 --- !u!135 &7136826859521539720
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -93,8 +81,23 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4722037113395758283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8293010826696424884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 709fa36f68f124844972c816ef9c04e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nearIndicator: {fileID: 2616986806735419429, guid: a7ecd81d8aac3244ca19029685e4c17e,
+    type: 3}
+  visu: {fileID: 2702906720648416840}
 --- !u!1001 &2973447255615271705
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -195,7 +198,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2702906720648416840}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 494f05d578e6ad442a8a6c5f61cf14db, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -205,7 +208,7 @@ SphereCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.97010195
   m_Center: {x: 0, y: 0, z: 0}
