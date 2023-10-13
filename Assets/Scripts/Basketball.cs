@@ -5,7 +5,6 @@ using NinjaTools;
 using System;
 
 public class Basketball : InteractableObject {
-
     [SerializeField] GameObject visu;
     Rigidbody rb;
     public enum BasketballState {
@@ -33,11 +32,19 @@ public class Basketball : InteractableObject {
         nearIndicator?.Hide();
         CurrentState = BasketballState.BeingPickedUp;
         transform.position = new Vector3(transform.position.x, 1f, transform.position.z);
+        rb.velocity = Vector3.zero;
     }
-    public void OnPickedUp() {
+    void Update() {
+        if(CurrentState==BasketballState.PickedUp && basketballHolder) {
+            transform.position = basketballHolder.transform.position;
+        }    
+    }
+    BasketballHolder basketballHolder;
+    public void OnPickedUp(BasketballHolder holder) {
         CurrentState = BasketballState.PickedUp;
         rb.isKinematic = true;
         visu.SetActive(false);
+        basketballHolder = holder;
     }
 
     public override void OnTriggerEnter(Collider other) {
@@ -48,7 +55,7 @@ public class Basketball : InteractableObject {
         if (CurrentState == BasketballState.Free) {
             nearIndicator?.Show(transform);
         }
-        logd(logId, "Other=" + other.logf());
+        logd(logId, "Player=" + other.logf());
     }
 
     public override void OnTriggerExit(Collider other) {
@@ -57,51 +64,21 @@ public class Basketball : InteractableObject {
             return;
         }
         nearIndicator?.Hide();
-        logd(logId, "Other=" + other.logf());
+        logd(logId, "Player=" + other.logf());
     }
-    public float throwForce = 2f;
-    public void Throw(Vector3 throwDirection) {
+    public void Throw() {
+        var logId = "Throw";
         CurrentState = BasketballState.Thrown;
         nearIndicator?.Hide();
+        rb.isKinematic = true;
+        logd(logId, "Setting Visu to True! IsKinematic=true");
         visu.SetActive(true);
-        initialPos = transform.position;
-        startTime = Time.time;
-        journeyLength = Vector3.Distance(initialPos, targetPos);
-        throwSpeed = journeyLength / 2f;
     }
-    public Vector3 targetPos;
-    Vector3 initialPos;
-    float journeyLength;
-    float startTime;
-    public float throwSpeed = 10f;
-    bool throwing = false;
-    public float gravity = 9.81f; // Standard gravity value
-    void Update() {
-        if(throwing) {
-            float journeyDuration = Time.time - startTime;
-            var distance = Vector3.Distance(transform.position, targetPos);
-            if (distance > 0.25f) {
-                // Calculate the normalized distance covered
-                float distanceCovered = journeyDuration * throwSpeed;
-
-                // Calculate the fraction of the journey completed
-                float fractionOfJourney = distanceCovered / journeyLength;
-
-                // Use the Lerp function to calculate the position of the basketball
-                Vector3 newPosition = Vector3.Lerp(initialPos, targetPos, fractionOfJourney);
-
-                // Apply gravity to create an arcing motion
-                float yOffset = Mathf.Sin(fractionOfJourney * Mathf.PI) * 2.0f; // Adjust amplitude as needed
-                newPosition.y += yOffset;
-
-                // Update the position of the basketball
-                transform.position = newPosition;
-            } else {
-                throwing = false;
-                CurrentState = BasketballState.Free;
-                nearIndicator?.Hide();
-                rb.isKinematic = false;
-            }
-        }
+    public void OnThrowEnd(Vector3 endVelocity) {
+        var logId = "OnThrowEnd";
+        logd(logId, "Throw Ended!");
+        rb.isKinematic = false;
+        rb.velocity = endVelocity;
+        CurrentState = BasketballState.Free;
     }
 }

@@ -7,8 +7,9 @@ public class Player : NinjaMonoBehaviour {
     [field: SerializeField] public PlayerStateMachine PlayerStateMachine { get; private set; }
     [field: SerializeField] public PlayerInput PlayerInput { get; private set; }
     [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
+    [field: SerializeField] public PlayerThrower PlayerThrower { get; private set; }
     [field: SerializeField] public Basketball CurrentBasketball { get; private set; }
-    public Transform basketballHolder;
+    public BasketballHolder basketballHolder;
     public Transform ballPickupPos;
     public Animator anim;
 
@@ -16,13 +17,14 @@ public class Player : NinjaMonoBehaviour {
         PlayerStateMachine = GetComponent<PlayerStateMachine>();
         PlayerInput = GetComponent<PlayerInput>();
         PlayerMovement = GetComponent<PlayerMovement>();
+        PlayerThrower = GetComponent<PlayerThrower>();
         anim = GetComponentInChildren<Animator>();
-        basketballHolder.gameObject.SetActive(false);
     }
     public void ThrowBasketball() {
-        CurrentBasketball.transform.position = basketballHolder.position;
-        basketballHolder.gameObject.SetActive(false);
-        CurrentBasketball.Throw(transform.forward);
+        var logId = "ThrowBasketball";
+        logd(logId, "Starting to physically throw basketball!");
+        basketballHolder.HideBasketball();
+        PlayerThrower.ThrowBasketball(CurrentBasketball);
         CurrentBasketball = null;
     }
     private void Update() {
@@ -64,7 +66,7 @@ public class Player : NinjaMonoBehaviour {
             return;
         }
         logd(logId, "Picked Basketball=" + CurrentBasketball.logf());
-        basketballHolder.gameObject.SetActive(true);
-        CurrentBasketball.OnPickedUp();
+        basketballHolder.ShowBasketball();
+        CurrentBasketball.OnPickedUp(basketballHolder);
     }
 }
