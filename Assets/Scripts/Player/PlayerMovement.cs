@@ -28,6 +28,10 @@ public class PlayerMovement : NinjaMonoBehaviour {
     private void LateUpdate() {
         currentVelocity = rb.velocity;
     }
+    private void OnDrawGizmos() {
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(orientation.position, orientation.position  + (Camera.main.transform.forward * 100));
+    }
     private void MovePlayer() {
         var logId = "MovePlayer";
         var verticalInput = player.PlayerInput.VerticalInput;

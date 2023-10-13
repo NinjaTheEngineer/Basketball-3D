@@ -19,15 +19,17 @@ public class PlayerThrower : NinjaMonoBehaviour
     private float throwStartTime;
     private int currentThrowIndex = 0;
 
-    public void ThrowBasketball(Basketball basketball)
-    {
+    public void ThrowBasketball(Basketball basketball, Board targetBoard) {
         var logId = "ThrowBasketball";
         currentBasketball = basketball;
-        if (currentBasketball != null && !isThrowing) {
-            isThrowing = true;
-            logd(logId, "Starting Throw!");
-            StartCoroutine(SimulateThrow());
+        throwTarget = targetBoard.ThrowTarget;
+        if (currentBasketball==null || targetBoard==null || isThrowing) {
+            logw(logId, "CurrentBasketball="+currentBasketball.logf() + " TargetBoard="+targetBoard.logf()+" IsThrowing="+isThrowing);
+            return;
         }
+        isThrowing = true;
+        logd(logId, "Starting Throw!");
+        StartCoroutine(SimulateThrow());
     }
     private List<Vector3> ballPath;
     private IEnumerator RecordBallPathRoutine() {
