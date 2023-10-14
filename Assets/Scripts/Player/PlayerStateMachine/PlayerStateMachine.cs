@@ -29,8 +29,7 @@ public class PlayerStateMachine : StateManager<PlayerStateMachine.PlayerState> {
         States.Add(PlayerState.PickUp, new PickUpState(player, PlayerState.PickUp));
         CurrentState = States[PlayerState.Idle];
     }
-
-    void StartThrowBasketball() {
+    public void StartThrowBasketball() {
         TransitionToState(PlayerState.Throw);
     }
     public override void OnStateChange(PlayerState state) {

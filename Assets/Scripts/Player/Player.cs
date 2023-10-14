@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using NinjaTools;
+using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Player : NinjaMonoBehaviour {
@@ -9,12 +11,13 @@ public class Player : NinjaMonoBehaviour {
     [field: SerializeField] public PlayerMovement PlayerMovement { get; private set; }
     [field: SerializeField] public PlayerThrower PlayerThrower { get; private set; }
     [field: SerializeField] public PlayerPointer PlayerPointer { get; private set; }
+    [field: SerializeField] public PowerMeter PowerMeter { get; private set;}
     [field: SerializeField] public Basketball CurrentBasketball { get; private set; }
     public BasketballHolder basketballHolder;
     public Transform ballPickupPos;
     public Animator anim;
-    Board currentThrowBoard;
-
+    public float score = 0;
+    public float threePointDistance = 5.5f;
     private void Awake() {
         PlayerStateMachine = GetComponent<PlayerStateMachine>();
         PlayerInput = GetComponent<PlayerInput>();
@@ -27,32 +30,28 @@ public class Player : NinjaMonoBehaviour {
         var logId = "ThrowBasketball";
         logd(logId, "Starting to physically throw basketball!");
         basketballHolder.HideBasketball();
-        PlayerThrower.ThrowBasketball(CurrentBasketball, currentThrowBoard);
+        PlayerThrower.ThrowBasketball(CurrentBasketball, LastThrowBoard);
         CurrentBasketball = null;
+        HideMeter();
     }
-    private void Update() {
-        var logId = "Update";
-        if(PlayerInput.InteractInput) {
-            if(CurrentBasketball==null) {
-                Collider[] colliders = Physics.OverlapSphere(ballPickupPos.position, 1f);
-                var collidersCount = colliders.Length;
-                for (int i = 0; i < collidersCount; i++) {
-                    InteractableObject interactableObject = colliders[i].GetComponent<InteractableObject>();
-                    if(interactableObject!=null) {
-                        interactableObject.OnInteract(gameObject);
-                        break;
-                    }
-                }
-            } else if(CurrentBasketball.CurrentState==Basketball.BasketballState.PickedUp){
-                currentThrowBoard = PlayerPointer.TargetBoard;
-                if(currentThrowBoard == null) {
-                    logw(logId, "No target board!");
-                    return;
-                }
-                logw(logId, "Target board="+ currentThrowBoard + " => Throwing basketball");
-                PlayerStateMachine.TransitionToState(PlayerStateMachine.PlayerState.Throw);
-            }
+    public float distanceFromThrow;
+    void AddScore() {
+        distanceFromThrow = Vector3.Distance(transform.position, _lastThrowBoard.ThrowTarget.position);
+        if(distanceFromThrow >= threePointDistance) {
+            score += 3;
+        } else {
+            score += 2;
         }
+        logd("AddScore", "Player Scored!");
+    }
+    [SerializeField] float meterDisappearDelay = 1f;
+    IEnumerator HideMeterRoutine() {
+        yield return new WaitForSeconds(meterDisappearDelay);
+        PowerMeter.gameObject.SetActive(false);
+    }
+    public void HideMeter() => StartCoroutine(HideMeterRoutine());
+    public void ShowMeterRoutine() {
+        PowerMeter.gameObject.SetActive(true);
     }
     public void PickUpBall(Basketball basketball) {
         var logId = "PickUpBall";
@@ -79,4 +78,17 @@ public class Player : NinjaMonoBehaviour {
         basketballHolder.ShowBasketball();
         CurrentBasketball.OnPickedUp(basketballHolder);
     }
+    Board _lastThrowBoard;
+    public Board LastThrowBoard {
+        get => _lastThrowBoard;
+        private set {
+            var logId = "CurrentBoard_set";
+            if(_lastThrowBoard) {
+                _lastThrowBoard.OnScore-=AddScore;
+            }
+            _lastThrowBoard = value;
+            _lastThrowBoard.OnScore+=AddScore;
+        }
+    }
+    public void SetThrowBoard(Board throwBoard) => LastThrowBoard = throwBoard;
 }

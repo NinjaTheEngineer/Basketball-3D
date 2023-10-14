@@ -9,17 +9,18 @@ public class Board : NinjaMonoBehaviour {
     [field: SerializeField] public Transform ThrowTarget {get; private set;}
     [SerializeField] ScoreValidator scoreValidator;
     [SerializeField] GameObject selectionIndicator;
+    public Action OnScore;
     private void OnEnable() {
         HideIndicator();
-        scoreValidator.OnScoreValid += OnScore; 
+        scoreValidator.OnScoreValid += OnBasketballScore; 
     }
     private void OnDisable() {
-        scoreValidator.OnScoreValid -= OnScore;
+        scoreValidator.OnScoreValid -= OnBasketballScore;
     }
-    void OnScore() {
+    void OnBasketballScore() {
         var logId = "OnScore";
         logd(logId, "Player Scored!");
-        //scoreParticles?.Play();
+        OnScore?.Invoke();
     }
 
     public void ShowIndicator() => selectionIndicator.SetActive(true);

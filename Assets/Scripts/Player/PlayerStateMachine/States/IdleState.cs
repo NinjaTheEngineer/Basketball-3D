@@ -16,6 +16,26 @@ public class IdleState : BaseState<PlayerStateMachine.PlayerState>
     public override void EnterState() {
     }
 
+    public override void UpdateState()
+    {
+        if (player.PlayerInput.InteractInput)
+        {
+            if (player.CurrentBasketball == null)
+            {
+                Collider[] colliders = Physics.OverlapSphere(player.ballPickupPos.position, 1f);
+                var collidersCount = colliders.Length;
+                for (int i = 0; i < collidersCount; i++)
+                {
+                    InteractableObject interactableObject = colliders[i].GetComponent<InteractableObject>();
+                    if (interactableObject != null)
+                    {
+                        interactableObject.OnInteract(player.gameObject);
+                        break;
+                    }
+                }
+            }
+        }
+    }
     public override void ExitState() {
     }
 
@@ -35,6 +55,4 @@ public class IdleState : BaseState<PlayerStateMachine.PlayerState>
     public override void OnTriggerStay(Collider other) {
     }
 
-    public override void UpdateState() {
-    }
 }

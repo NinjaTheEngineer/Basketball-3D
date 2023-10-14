@@ -49,7 +49,7 @@ public class Basketball : InteractableObject {
 
     public override void OnTriggerEnter(Collider other) {
         var logId = "OnTriggerEnter";
-        if (other.tag!="Player") {
+        if (CurrentState == BasketballState.PickedUp || other.tag!="Player") {
             return;
         }
         if (CurrentState == BasketballState.Free) {
@@ -60,7 +60,7 @@ public class Basketball : InteractableObject {
 
     public override void OnTriggerExit(Collider other) {
         var logId = "OnTriggerExit";
-        if (other.tag!="Player") {
+        if (CurrentState == BasketballState.PickedUp || other.tag!="Player") {
             return;
         }
         nearIndicator?.Hide();

@@ -17,7 +17,7 @@ public class PlayerPointer : NinjaMonoBehaviour {
             if(_targetBoard) {
                 _targetBoard.HideIndicator();
             }
-            logd(logId, "Setting TargetBoard from "+_targetBoard.logf() + " to "+value.logf());
+            logd(logId, "Setting TargetBoard from "+_targetBoard.logf() + " to "+value.logf(), true);
             _targetBoard = value;
             if (_targetBoard) {
                 _targetBoard.ShowIndicator();
@@ -34,7 +34,6 @@ public class PlayerPointer : NinjaMonoBehaviour {
             if(Physics.Raycast(orientation.position, Camera.main.transform.forward, out raycastHit, 20)) {
                 var collider = raycastHit.collider;
                 TargetBoard = collider.GetComponent<Board>()??collider.GetComponentInParent<BoardProxy>()?.GetTargetBoard();
-                logd(logId,"Collider hit="+collider.name);
             } else {
                 TargetBoard = null;
             }
