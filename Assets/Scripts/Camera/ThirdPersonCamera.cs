@@ -7,13 +7,13 @@ public class ThirdPersonCamera : NinjaMonoBehaviour {
     [Header("References")]
     public Transform orientation;
     public Transform player;
-    public Transform playerObj;
+    public Transform visu;
     public Rigidbody rb;
 
     public float rotationSpeed;
     private void Awake() {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
     }
     void Update() {
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
@@ -24,7 +24,7 @@ public class ThirdPersonCamera : NinjaMonoBehaviour {
         Vector3 inputDir = orientation.forward * verticalInput + orientation.right * horizontalInput;
 
         if(inputDir != Vector3.zero) {
-            playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
+            visu.forward = Vector3.Slerp(visu.forward, inputDir.normalized, Time.deltaTime * rotationSpeed);
         }
     }
 }

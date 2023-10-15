@@ -13,8 +13,8 @@ namespace NinjaTools {
     public class AddressableInstantiator : NinjaMonoBehaviour {
         [SerializeField] AssetReferenceGameObject assetGameObject; 
         GameObject _instanceReference;
-
-        private void Start() {
+        public GameObject InstanceReference => _instanceReference;
+        private void Update() {
             //assetGameObject.InstantiateAsync();
             
             if(Input.GetKeyDown(KeyCode.I)) {
@@ -23,12 +23,16 @@ namespace NinjaTools {
                 assetGameObject.ReleaseInstance(_instanceReference);
             }
         }
-
+        Vector3 instantiatePosition;
+        public void InstantiateAssetReference(Vector3 position = default) {
+            instantiatePosition = position;
+            assetGameObject.LoadAssetAsync().Completed += OnAddressableLoaded;
+        }
         private void OnAddressableLoaded(AsyncOperationHandle<GameObject> handle) {
             var logId = "OnAddressableLoaded";
             if(handle.Status==AsyncOperationStatus.Succeeded) {
                 _instanceReference = handle.Result;
-                Instantiate(_instanceReference);
+                Instantiate(_instanceReference, instantiatePosition, Quaternion.identity);
             } else {
                 loge(logId, "Loading Asset Failed");
             }

@@ -16,8 +16,10 @@ public class Player : NinjaMonoBehaviour {
     public BasketballHolder basketballHolder;
     public Transform ballPickupPos;
     public Animator anim;
+    [SerializeField] GameObject playerCamera;
     public float score = 0;
     public float threePointDistance = 5.5f;
+    public float distanceFromThrow;
     private void Awake() {
         PlayerStateMachine = GetComponent<PlayerStateMachine>();
         PlayerInput = GetComponent<PlayerInput>();
@@ -25,6 +27,12 @@ public class Player : NinjaMonoBehaviour {
         PlayerThrower = GetComponent<PlayerThrower>();
         PlayerPointer = GetComponent<PlayerPointer>();
         anim = GetComponentInChildren<Animator>();
+    }
+    private void OnEnable() {
+        GameManager.Instance.OnGameStart += () => playerCamera.SetActive(true);
+    }
+    private void OnDisable() {
+        GameManager.Instance.OnGameStart -= () => playerCamera.SetActive(true);
     }
     public void ThrowBasketball() {
         var logId = "ThrowBasketball";
@@ -34,7 +42,6 @@ public class Player : NinjaMonoBehaviour {
         CurrentBasketball = null;
         HideMeter();
     }
-    public float distanceFromThrow;
     void AddScore() {
         distanceFromThrow = Vector3.Distance(transform.position, _lastThrowBoard.ThrowTarget.position);
         if(distanceFromThrow >= threePointDistance) {
@@ -87,7 +94,9 @@ public class Player : NinjaMonoBehaviour {
                 _lastThrowBoard.OnScore-=AddScore;
             }
             _lastThrowBoard = value;
-            _lastThrowBoard.OnScore+=AddScore;
+            if(_lastThrowBoard) {
+                _lastThrowBoard.OnScore+=AddScore;
+            }
         }
     }
     public void SetThrowBoard(Board throwBoard) => LastThrowBoard = throwBoard;

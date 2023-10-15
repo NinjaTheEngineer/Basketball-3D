@@ -16,7 +16,17 @@ MonoBehaviour:
   m_Data:
     m_SerializedData: []
   m_GUID: c79fe736ca7fac04fbd4da187c1317b0
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 03e6e8646f8533a42bfbdbbca267953b
+    m_Address: Assets/Prefabs/Court.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cb5cedf97e76fd408e5c86ad0e51855
+    m_Address: Assets/Prefabs/Player.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 16dc3e95800c0f043af814bb9a6943b5, type: 2}
   m_SchemaSet:

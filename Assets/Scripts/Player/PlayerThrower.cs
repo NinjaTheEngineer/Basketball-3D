@@ -5,7 +5,6 @@ using NinjaTools;
 using UnityEngine;
 
 public class PlayerThrower : NinjaMonoBehaviour {
-    public Transform throwTarget; 
     public Transform throwInitialPos; 
     [SerializeField] float minForce = 3f;
     [SerializeField] float maxForce = 12f; // Desired speed for the throw // Will be the force used from the meter
@@ -13,19 +12,21 @@ public class PlayerThrower : NinjaMonoBehaviour {
     public float gravity = 9.81f;
     [SerializeField] float firstPathPointMultiplier = 2f;
     [SerializeField] float secondPathPointMultiplier = 3f;
-
-    public bool IsThrowing {get; private set;}
-    private Basketball currentBasketball;
-    private Vector3[] throwPath;
-    private float throwDuration;
-    private float throwStartTime;
-    private int currentThrowIndex = 0;
-    public float lastThrowDistance;
+    public bool IsThrowing {get; private set; }
+    [Range(0.1f, 0.99f)]
+    [SerializeField] float breakpointPos = 0.8f;
+    Basketball currentBasketball;
+    Vector3 breakpoint;
+    Vector3[] throwPath;
+    float throwDuration;
+    float throwStartTime;
+    int currentThrowIndex = 0;
+    Transform throwTarget;
+    List<Vector3> ballPath;
     public void ThrowBasketball(Basketball basketball, Board targetBoard) {
         var logId = "ThrowBasketball";
         currentBasketball = basketball;
         throwTarget = targetBoard.ThrowTarget;
-        lastThrowDistance = Vector3.Distance(transform.position, throwTarget.position);
         if (currentBasketball==null || targetBoard==null || IsThrowing) {
             logw(logId, "CurrentBasketball="+currentBasketball.logf() + " TargetBoard="+targetBoard.logf()+" IsThrowing="+IsThrowing);
             return;
@@ -34,7 +35,6 @@ public class PlayerThrower : NinjaMonoBehaviour {
         logd(logId, "Starting Throw!");
         StartCoroutine(SimulateThrow());
     }
-    private List<Vector3> ballPath;
     private IEnumerator RecordBallPathRoutine() {
         var startTime = Time.fixedTime;
         while(currentBasketball && Time.fixedTime - startTime < 1) {
@@ -81,7 +81,6 @@ public class PlayerThrower : NinjaMonoBehaviour {
             throwPath[i] = p;
         }
     }
-    Vector3 breakpoint;
     IEnumerator SimulateThrow() {
         Vector3 initialPosition = throwInitialPos.position;
         Vector3 targetPosition = throwTarget.position;
@@ -127,8 +126,6 @@ public class PlayerThrower : NinjaMonoBehaviour {
         }
 
     }
-    [Range(0.1f, 0.99f)]
-    [SerializeField] float breakpointPos = 0.8f;
     private Vector3 CalculateFinalVelocity() {
         var logId = "CalculateFinalVelocity";
         var pathLength = throwPath.Length;
