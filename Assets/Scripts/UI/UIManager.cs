@@ -17,13 +17,13 @@ public class UIManager : NinjaMonoBehaviour {
             Destroy(gameObject);
             return;
         }
+        CountdownTimer.OnCountdownFinished += OnGameOver;
         Instance = this;
     }
     void OnGameStart() {
         gameMenu = Instantiate(gameMenuPb, transform);
         gameMenu.LockCursor();
         countdownTimer = Instantiate(countdownTimer, transform);
-        CountdownTimer.OnCountdownFinished += OnGameOver;
         countdownTimer.StartTimer();
     }
     private void OnEnable() {
@@ -48,6 +48,7 @@ public class UIManager : NinjaMonoBehaviour {
     void OnGameOver() {
         AudioManager.Instance.PlayGameOverSound();
         gameMenu.ShowGameOver();
+        CountdownTimer.OnCountdownFinished -= OnGameOver;
     }
     public void OnPlayerScore(Player player, int score) {
         countdownTimer.StartTimer();
