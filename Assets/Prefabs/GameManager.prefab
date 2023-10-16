@@ -46,10 +46,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50873e86a73b8fb4f8f572f324ff7413, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menuCamera: {fileID: 0}
   courtInstantiator: {fileID: 8768886059903452331}
   playerInstantiator: {fileID: 6372523791870475185}
-  startMenu: {fileID: 0}
+  basketball: {fileID: -4722037113395758283, guid: 3e429cab894fd2c43b502175c86ff6b7,
+    type: 3}
+  playerInitPos: {x: 4.5, y: 1, z: -2}
+  secPlayerInitPos: {x: 0, y: 0, z: 0}
+  basketballStartHeight: 5
+  startGameOnAwake: 0
   startGameRoutineIntervals: 0.1
 --- !u!114 &8768886059903452331
 MonoBehaviour:

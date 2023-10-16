@@ -26,6 +26,10 @@ namespace NinjaTools {
         Vector3 instantiatePosition;
         public void InstantiateAssetReference(Vector3 position = default) {
             instantiatePosition = position;
+            if(_instanceReference) {
+                Instantiate(_instanceReference, instantiatePosition, Quaternion.identity);
+                return;
+            }
             assetGameObject.LoadAssetAsync().Completed += OnAddressableLoaded;
         }
         private void OnAddressableLoaded(AsyncOperationHandle<GameObject> handle) {

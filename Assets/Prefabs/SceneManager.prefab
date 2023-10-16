@@ -84,6 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   openSceneDelay: 0.3
   closeSceneDelay: 0.75
+  sceneLoadDelay: 0.1
 --- !u!1 &6378897479259285064
 GameObject:
   m_ObjectHideFlags: 0
@@ -145,7 +146,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!114 &1881848489260768859
 MonoBehaviour:

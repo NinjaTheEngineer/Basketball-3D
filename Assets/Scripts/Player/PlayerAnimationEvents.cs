@@ -14,6 +14,11 @@ public class PlayerAnimationEvents : NinjaMonoBehaviour {
     }
 
     public void OnThrowBasketball() {
+        AudioManager.Instance.PlayThrowSound();
         player?.ThrowBasketball();
+    }
+
+    public void OnBasketballBounce() {
+        AudioManager.Instance.PlayBounceSound();
     }
 }

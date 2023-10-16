@@ -9,12 +9,18 @@ public class GameManager : NinjaMonoBehaviour {
     public static GameManager Instance;
     public AddressableInstantiator courtInstantiator, playerInstantiator;
     public Action OnGameStart;
+    public Basketball basketball;
+    public Basketball Basketball {get; private set; }
+    public Vector3 playerInitPos;
+    public Vector3 secPlayerInitPos;
+    public float basketballStartHeight = 5f;
     public bool startGameOnAwake=false;
     private void Awake() {
         if(Instance) {
             Destroy(gameObject);
             return;
         }
+        Utils.InitRandom();
         Instance = this;
     }
     private void Start() {
@@ -26,9 +32,9 @@ public class GameManager : NinjaMonoBehaviour {
         StartCoroutine(LoadGameRoutine());
     }
     private void StartGame() {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Basketball = Instantiate(basketball, new Vector3(0, basketballStartHeight, 0), Quaternion.identity);
         OnGameStart?.Invoke();
+        AudioManager.Instance.PlayStartGameSound();
     }
     public float startGameRoutineIntervals = 0.1f;
     IEnumerator LoadGameRoutine() {
@@ -39,7 +45,9 @@ public class GameManager : NinjaMonoBehaviour {
             yield return waitForSeconds;
         }
         courtInstantiator.InstantiateAssetReference();
-        playerInstantiator.InstantiateAssetReference();
+        playerInstantiator.InstantiateAssetReference(playerInitPos);
         StartGame();
     }
+
+    public void RestartGame() => LoadGame();
 }

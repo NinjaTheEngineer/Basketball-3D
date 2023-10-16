@@ -35,6 +35,7 @@ public class Player : NinjaMonoBehaviour {
             }
         }
     }
+    Vector3 lastThrowPos;
     public void SetThrowBoard(Board throwBoard) => LastThrowBoard = throwBoard;
     private void Awake() {
         PlayerStateMachine = GetComponent<PlayerStateMachine>();
@@ -51,18 +52,20 @@ public class Player : NinjaMonoBehaviour {
         var logId = "ThrowBasketball";
         logd(logId, "Starting to physically throw basketball!");
         basketballHolder.HideBasketball();
+        lastThrowPos = transform.position;
         PlayerThrower.ThrowBasketball(CurrentBasketball, LastThrowBoard);
         CurrentBasketball = null;
         HideMeter();
     }
     void AddScore() {
-        distanceFromThrow = Vector3.Distance(transform.position, _lastThrowBoard.ThrowTarget.position);
+        var logId = "AddScore";
+        distanceFromThrow = Vector3.Distance(lastThrowPos, _lastThrowBoard.ThrowTarget.position);
         int throwScore = 2;
         if(distanceFromThrow >= threePointDistance) {
             throwScore = 3;
         }
         OnPlayerScore?.Invoke(this, throwScore);
-        logd("AddScore", "Player Scored!");
+        logd(logId, "Player Scored!");
     }
     IEnumerator HideMeterRoutine() {
         yield return new WaitForSeconds(meterDisappearDelay);

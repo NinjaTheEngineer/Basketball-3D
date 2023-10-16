@@ -26,6 +26,7 @@ public class ScoreValidator : Validator {
     IEnumerator ValidScoreRoutine() {
         var logId = "ValidScoreRoutine";
         board.OnValidScore();
+        AudioManager.Instance.PlayNetHitSound();
         isThrowInvalid = true;
         yield return new WaitForSeconds(invalidThrowDelay);
         logd(logId, "Throw no longer invalid.");
