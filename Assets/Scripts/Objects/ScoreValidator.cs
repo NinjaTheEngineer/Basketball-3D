@@ -1,19 +1,15 @@
 using System;
 using System.Collections;
 using UnityEngine;
-using TMPro;
 
 public class ScoreValidator : Validator {
-    public TextMeshProUGUI scoreText;
-    public static Action OnScoreValid;
-    public Action OnScoreInvalid;
+    Board board;
     public FirstScoreValidator topValidator;
     bool isThrowInvalid;
-    int currentScore = 0;
     [SerializeField] float invalidThrowDelay = 2f;
-    
-    private void Awake() {
-        scoreText.text = currentScore.ToString();
+
+    private void Start() {
+        board = GetComponentInParent<Board>();
     }
     private void OnTriggerEnter(Collider other) {
         var logId = "OnTriggerEnter";
@@ -29,9 +25,7 @@ public class ScoreValidator : Validator {
     }
     IEnumerator ValidScoreRoutine() {
         var logId = "ValidScoreRoutine";
-        OnScoreValid?.Invoke();
-        currentScore += 2;
-        scoreText.text = currentScore.ToString();
+        board.OnValidScore();
         isThrowInvalid = true;
         yield return new WaitForSeconds(invalidThrowDelay);
         logd(logId, "Throw no longer invalid.");
@@ -39,7 +33,6 @@ public class ScoreValidator : Validator {
     }
     IEnumerator InvalidScoreRoutine() {
         var logId = "InvalidThrowRoutine";
-        OnScoreInvalid?.Invoke();
         isThrowInvalid = true;
         yield return new WaitForSeconds(invalidThrowDelay);
         logd(logId, "Throw no longer invalid.");

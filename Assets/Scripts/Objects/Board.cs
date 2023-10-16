@@ -3,21 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using NinjaTools;
 using System;
+using TMPro;
 
 public class Board : NinjaMonoBehaviour {
+    public TextMeshProUGUI scoreText;
     [SerializeField] ParticleSystem scoreParticles; 
     [field: SerializeField] public Transform ThrowTarget {get; private set;}
-    [SerializeField] ScoreValidator scoreValidator;
     [SerializeField] GameObject selectionIndicator;
     public Action OnScore;
+    int currentScore = 0;
+    private void Awake() {
+        scoreText.text = currentScore.ToString();
+    }
     private void OnEnable() {
         HideIndicator();
-        scoreValidator.OnScoreValid += OnBasketballScore; 
+        Player.OnPlayerScore += OnPlayerScore;
     }
-    private void OnDisable() {
-        scoreValidator.OnScoreValid -= OnBasketballScore;
+    void OnPlayerScore(Player player, int score) {
+        if(this!=player.LastThrowBoard) {
+            return;
+        }
+        currentScore += score;
+        scoreText.text = currentScore.ToString();
     }
-    void OnBasketballScore() {
+    public void OnValidScore() {
         var logId = "OnScore";
         logd(logId, "Player Scored!");
         OnScore?.Invoke();

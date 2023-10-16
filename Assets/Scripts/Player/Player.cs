@@ -18,6 +18,24 @@ public class Player : NinjaMonoBehaviour {
     public float score = 0;
     public float threePointDistance = 5.5f;
     public float distanceFromThrow;
+    public static Action<Player, int> OnPlayerScore;
+    [SerializeField] float meterDisappearDelay = 1f;
+    Board _lastThrowBoard;
+    public float interactableRadius = 2f;
+    public Board LastThrowBoard {
+        get => _lastThrowBoard;
+        private set {
+            var logId = "CurrentBoard_set";
+            if(_lastThrowBoard) {
+                _lastThrowBoard.OnScore-=AddScore;
+            }
+            _lastThrowBoard = value;
+            if(_lastThrowBoard) {
+                _lastThrowBoard.OnScore+=AddScore;
+            }
+        }
+    }
+    public void SetThrowBoard(Board throwBoard) => LastThrowBoard = throwBoard;
     private void Awake() {
         PlayerStateMachine = GetComponent<PlayerStateMachine>();
         PlayerInput = GetComponent<PlayerInput>();
@@ -36,14 +54,13 @@ public class Player : NinjaMonoBehaviour {
     }
     void AddScore() {
         distanceFromThrow = Vector3.Distance(transform.position, _lastThrowBoard.ThrowTarget.position);
+        int throwScore = 2;
         if(distanceFromThrow >= threePointDistance) {
-            score += 3;
-        } else {
-            score += 2;
+            throwScore = 3;
         }
+        OnPlayerScore?.Invoke(this, throwScore);
         logd("AddScore", "Player Scored!");
     }
-    [SerializeField] float meterDisappearDelay = 1f;
     IEnumerator HideMeterRoutine() {
         yield return new WaitForSeconds(meterDisappearDelay);
         PowerMeter.gameObject.SetActive(false);
@@ -77,24 +94,6 @@ public class Player : NinjaMonoBehaviour {
         basketballHolder.ShowBasketball();
         CurrentBasketball.OnPickedUp(basketballHolder);
     }
-    Board _lastThrowBoard;
-    public Board LastThrowBoard {
-        get => _lastThrowBoard;
-        private set {
-            var logId = "CurrentBoard_set";
-            if(_lastThrowBoard) {
-                _lastThrowBoard.OnScore-=AddScore;
-            }
-            _lastThrowBoard = value;
-            if(_lastThrowBoard) {
-                _lastThrowBoard.OnScore+=AddScore;
-            }
-        }
-    }
-    public float interactableRadius = 2f;
-    private void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(ballPickupPos.position, interactableRadius);
-    }
     public InteractableObject NearestInteractable { 
         get {
             Collider[] colliders = Physics.OverlapSphere(ballPickupPos.position, interactableRadius);
@@ -109,5 +108,4 @@ public class Player : NinjaMonoBehaviour {
         } 
     }
 
-    public void SetThrowBoard(Board throwBoard) => LastThrowBoard = throwBoard;
 }
