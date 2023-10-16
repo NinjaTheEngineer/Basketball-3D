@@ -1,8 +1,6 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using NinjaTools;
-using UnityEditor.Callbacks;
 using UnityEngine;
 
 public class Player : NinjaMonoBehaviour {
@@ -27,12 +25,6 @@ public class Player : NinjaMonoBehaviour {
         PlayerThrower = GetComponent<PlayerThrower>();
         PlayerPointer = GetComponent<PlayerPointer>();
         anim = GetComponentInChildren<Animator>();
-    }
-    private void OnEnable() {
-        GameManager.Instance.OnGameStart += () => playerCamera.SetActive(true);
-    }
-    private void OnDisable() {
-        GameManager.Instance.OnGameStart -= () => playerCamera.SetActive(true);
     }
     public void ThrowBasketball() {
         var logId = "ThrowBasketball";
@@ -99,5 +91,23 @@ public class Player : NinjaMonoBehaviour {
             }
         }
     }
+    public float interactableRadius = 2f;
+    private void OnDrawGizmos() {
+        Gizmos.DrawWireSphere(ballPickupPos.position, interactableRadius);
+    }
+    public InteractableObject NearestInteractable { 
+        get {
+            Collider[] colliders = Physics.OverlapSphere(ballPickupPos.position, interactableRadius);
+            var collidersCount = colliders.Length;
+            for (int i = 0; i < collidersCount; i++) {
+                InteractableObject interactableObject = colliders[i].GetComponent<InteractableObject>();
+                if (interactableObject != null) {
+                    return interactableObject;
+                }
+            }
+            return null;
+        } 
+    }
+
     public void SetThrowBoard(Board throwBoard) => LastThrowBoard = throwBoard;
 }

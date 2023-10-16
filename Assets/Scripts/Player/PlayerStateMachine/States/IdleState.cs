@@ -16,24 +16,10 @@ public class IdleState : BaseState<PlayerStateMachine.PlayerState>
     public override void EnterState() {
     }
 
-    public override void UpdateState()
-    {
-        if (player.PlayerInput.InteractInput)
-        {
-            if (player.CurrentBasketball == null)
-            {
-                Collider[] colliders = Physics.OverlapSphere(player.ballPickupPos.position, 1f);
-                var collidersCount = colliders.Length;
-                for (int i = 0; i < collidersCount; i++)
-                {
-                    InteractableObject interactableObject = colliders[i].GetComponent<InteractableObject>();
-                    if (interactableObject != null)
-                    {
-                        interactableObject.OnInteract(player.gameObject);
-                        break;
-                    }
-                }
-            }
+    public override void UpdateState() {
+        if (player.PlayerInput.InteractInput && player.CurrentBasketball == null) {
+            var nearestInteractable = player.NearestInteractable; 
+            nearestInteractable?.OnInteract(player.gameObject);
         }
     }
     public override void ExitState() {

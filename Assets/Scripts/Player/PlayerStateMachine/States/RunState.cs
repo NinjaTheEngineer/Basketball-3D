@@ -13,6 +13,13 @@ public class RunState : BaseState<PlayerStateMachine.PlayerState> {
     {
     }
 
+    public override void UpdateState() {
+        if (player.PlayerInput.InteractInput && player.CurrentBasketball == null)
+        {
+            var nearestInteractable = player.NearestInteractable;
+            nearestInteractable?.OnInteract(player.gameObject);
+        }
+    }
     public override void ExitState()
     {
     }
@@ -33,10 +40,6 @@ public class RunState : BaseState<PlayerStateMachine.PlayerState> {
     }
 
     public override void OnTriggerStay(Collider other)
-    {
-    }
-
-    public override void UpdateState()
     {
     }
 }

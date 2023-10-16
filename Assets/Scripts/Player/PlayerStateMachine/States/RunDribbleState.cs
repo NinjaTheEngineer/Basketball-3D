@@ -23,10 +23,10 @@ public class RunDribbleState : BaseState<PlayerStateMachine.PlayerState>
             player.SetThrowBoard(currentThrowBoard);
             if (currentThrowBoard == null)
             {
-                Utils.logw(logId, "No target board!");
+                Utils.logd(logId, "No target board!");
                 return;
             }
-            Utils.logw(logId, "Target board=" + currentThrowBoard + " => Throwing basketball");
+            Utils.logd(logId, "Target board=" + currentThrowBoard + " => Throwing basketball");
             player.PlayerStateMachine.StartThrowBasketball();
         }
     }

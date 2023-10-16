@@ -5,7 +5,7 @@ using TMPro;
 
 public class ScoreValidator : Validator {
     public TextMeshProUGUI scoreText;
-    public Action OnScoreValid;
+    public static Action OnScoreValid;
     public Action OnScoreInvalid;
     public FirstScoreValidator topValidator;
     bool isThrowInvalid;
