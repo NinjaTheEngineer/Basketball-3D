@@ -21,6 +21,7 @@ public class UIManager : NinjaMonoBehaviour {
     }
     void OnGameStart() {
         gameMenu = Instantiate(gameMenuPb, transform);
+        gameMenu.LockCursor();
         countdownTimer = Instantiate(countdownTimer, transform);
         CountdownTimer.OnCountdownFinished += OnGameOver;
         countdownTimer.StartTimer();

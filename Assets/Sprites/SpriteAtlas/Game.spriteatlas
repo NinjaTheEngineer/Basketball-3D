@@ -23,7 +23,7 @@ SpriteAtlas:
     platformSettings:
     - serializedVersion: 3
       m_BuildTarget: DefaultTexturePlatform
-      m_MaxTextureSize: 1024
+      m_MaxTextureSize: 2048
       m_ResizeAlgorithm: 0
       m_TextureFormat: -1
       m_TextureCompression: 1
@@ -45,18 +45,45 @@ SpriteAtlas:
     secondaryTextureSettings: {}
     variantMultiplier: 1
     packables:
+    - {fileID: 2800000, guid: 2b0d4e7bf344774459d025e4c723ba78, type: 3}
     - {fileID: 2800000, guid: ee8fa972e479f2d4f8d8d757f88fc1a5, type: 3}
-    - {fileID: 2800000, guid: fe386e51cf80a1743aa165b10b9c4480, type: 3}
+    - {fileID: 2800000, guid: 90523fd09249fed4291cb5227e137ea0, type: 3}
     - {fileID: 2800000, guid: ebec51d3126e9c04da64f5fefc0423ea, type: 3}
     - {fileID: 2800000, guid: bb8dbc5bec0eaeb4dab68d237013205b, type: 3}
     - {fileID: 2800000, guid: 7a00a25a042577341bacbfbec72e06bb, type: 3}
+    - {fileID: 2800000, guid: 169aaba8c20e92e45a85bf68e9159ff3, type: 3}
+    - {fileID: 2800000, guid: a9a22c90a69285f4fba9717e84852717, type: 3}
     bindAsDefault: 1
     isAtlasV2: 0
     cachedData: {fileID: 0}
-    packedSpriteRenderDataKeys: []
+    packedSpriteRenderDataKeys:
+    - a9a22c90a69285f4fba9717e84852717: 21300000
+    - 90523fd09249fed4291cb5227e137ea0: 21300000
+    - ee8fa972e479f2d4f8d8d757f88fc1a5: 21300000
+    - ebec51d3126e9c04da64f5fefc0423ea: 21300000
+    - 169aaba8c20e92e45a85bf68e9159ff3: 21300000
+    - 7a00a25a042577341bacbfbec72e06bb: 21300000
+    - bb8dbc5bec0eaeb4dab68d237013205b: 21300000
+    - 2b0d4e7bf344774459d025e4c723ba78: 21300000
   m_MasterAtlas: {fileID: 0}
-  m_PackedSprites: []
-  m_PackedSpriteNamesToIndex: []
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a9a22c90a69285f4fba9717e84852717, type: 3}
+  - {fileID: 21300000, guid: 90523fd09249fed4291cb5227e137ea0, type: 3}
+  - {fileID: 21300000, guid: ee8fa972e479f2d4f8d8d757f88fc1a5, type: 3}
+  - {fileID: 21300000, guid: ebec51d3126e9c04da64f5fefc0423ea, type: 3}
+  - {fileID: 21300000, guid: 169aaba8c20e92e45a85bf68e9159ff3, type: 3}
+  - {fileID: 21300000, guid: 7a00a25a042577341bacbfbec72e06bb, type: 3}
+  - {fileID: 21300000, guid: bb8dbc5bec0eaeb4dab68d237013205b, type: 3}
+  - {fileID: 21300000, guid: 2b0d4e7bf344774459d025e4c723ba78, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - box_user information
+  - circle_2
+  - Restart
+  - Quit
+  - bar_exp
+  - Resume
+  - PlayerScoreIcon
+  - box_option3
   m_RenderDataMap: {}
   m_Tag: Game
   m_IsVariant: 0
