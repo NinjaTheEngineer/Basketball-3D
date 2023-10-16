@@ -35,7 +35,7 @@ public class CountdownTimer : NinjaMonoBehaviour {
             OnCountdownFinished?.Invoke();
         }
         int milliseconds = Mathf.FloorToInt(remainingTime * 1000);
-        timerText.text = (milliseconds / 1000)+"."+(milliseconds % 100).ToString("D2");
-    
+        timerText.text = (milliseconds / 1000)+"."+(milliseconds % 1000 / 10).ToString("D2");
+
     }
 }
