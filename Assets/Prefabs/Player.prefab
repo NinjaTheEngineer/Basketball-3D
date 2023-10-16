@@ -102,7 +102,7 @@ GameObject:
   - component: {fileID: 2234150395845466404}
   m_Layer: 0
   m_Name: PowerMeter
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,7 +273,7 @@ GameObject:
   - component: {fileID: 5018228896360349453}
   m_Layer: 0
   m_Name: PickBallPosition
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -386,7 +386,7 @@ GameObject:
   - component: {fileID: 683297542673678816}
   m_Layer: 0
   m_Name: PlayerCamera
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -546,7 +546,7 @@ MonoBehaviour:
   m_CollideAgainst:
     serializedVersion: 2
     m_Bits: 1
-  m_IgnoreTag: Basketball
+  m_IgnoreTag: Player
   m_TransparentLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1630,6 +1630,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 31.185728
       objectReference: {fileID: 0}
+    - target: {fileID: -8825237598274801784, guid: dac11f0ee538ca9469a6be28609f44d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: -8739090428522079082, guid: dac11f0ee538ca9469a6be28609f44d3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1755,6 +1760,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.028536087
       objectReference: {fileID: 0}
+    - target: {fileID: -7143064857610932893, guid: dac11f0ee538ca9469a6be28609f44d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: -7067583090204131254, guid: dac11f0ee538ca9469a6be28609f44d3,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1784,6 +1794,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.87965
+      objectReference: {fileID: 0}
+    - target: {fileID: -6537936343540691165, guid: dac11f0ee538ca9469a6be28609f44d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: -5826805103292253258, guid: dac11f0ee538ca9469a6be28609f44d3,
         type: 3}
@@ -1829,6 +1844,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 194.994
+      objectReference: {fileID: 0}
+    - target: {fileID: -4402405717547116215, guid: dac11f0ee538ca9469a6be28609f44d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: -3740023774930315418, guid: dac11f0ee538ca9469a6be28609f44d3,
         type: 3}
@@ -1889,6 +1909,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 23.691055
+      objectReference: {fileID: 0}
+    - target: {fileID: -2356915838762956452, guid: dac11f0ee538ca9469a6be28609f44d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: -2222177442952688075, guid: dac11f0ee538ca9469a6be28609f44d3,
         type: 3}
@@ -2135,6 +2160,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -49.557777
       objectReference: {fileID: 0}
+    - target: {fileID: 1664083765829960058, guid: dac11f0ee538ca9469a6be28609f44d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1712148502986564766, guid: dac11f0ee538ca9469a6be28609f44d3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2344,6 +2374,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -0.028132617
+      objectReference: {fileID: 0}
+    - target: {fileID: 7426409270946055879, guid: dac11f0ee538ca9469a6be28609f44d3,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 7687346004530709025, guid: dac11f0ee538ca9469a6be28609f44d3,
         type: 3}

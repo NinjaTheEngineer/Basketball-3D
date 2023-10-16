@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -4722037113395758283}
   m_Layer: 0
   m_Name: Basketball
-  m_TagString: Basketball
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 473e4394b6c46a24abbe1958b6b186cd,
         type: 3}
       propertyPath: m_TagString
-      value: Basketball
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
