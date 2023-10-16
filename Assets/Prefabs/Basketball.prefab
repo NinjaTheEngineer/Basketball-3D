@@ -176,6 +176,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Visu
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 473e4394b6c46a24abbe1958b6b186cd,
+        type: 3}
+      propertyPath: m_TagString
+      value: Basketball
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

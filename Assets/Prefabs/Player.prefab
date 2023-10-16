@@ -768,7 +768,7 @@ MonoBehaviour:
   threePointDistance: 5.5
   distanceFromThrow: 0
   meterDisappearDelay: 1
-  interactableRadius: 1.15
+  interactableRadius: 1.3
 --- !u!114 &4696889583489652939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -796,8 +796,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   throwInitialPos: {fileID: 8332428029381223051}
-  minForce: 2
-  maxForce: 10
+  minForce: 1
+  maxForce: 6.5
   calculatedForce: 0
   gravity: 9.81
   firstPathPointMultiplier: 2
@@ -1302,7 +1302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6612928102709122889}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.015043851, y: -0.66412604, z: 0.013368591, w: 0.74734974}
+  m_LocalRotation: {x: 0.015043864, y: -0.66412604, z: 0.013368603, w: 0.7473497}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1381,7 +1381,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6618861368233300945}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.002535255, y: -0.6451021, z: -0.0021404542, w: 0.7640892}
+  m_LocalRotation: {x: -0.0025352547, y: -0.6451021, z: -0.0021404542, w: 0.7640892}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

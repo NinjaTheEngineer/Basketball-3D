@@ -18,7 +18,7 @@ public class PlayerScore : NinjaMonoBehaviour {
     }
     public void OnPlayerScore(Player p, int score) {
         var logId = "OnPlayerScore";
-        if(p==null || p==player) {
+        if(p==null || p!=player) {
             logw(logId,"Player="+player.logf()+" PlayerThatScored="+p.logf());
             return;
         }

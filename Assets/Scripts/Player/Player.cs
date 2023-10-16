@@ -44,6 +44,9 @@ public class Player : NinjaMonoBehaviour {
         PlayerPointer = GetComponent<PlayerPointer>();
         anim = GetComponentInChildren<Animator>();
     }
+    private void Start() {
+        UIManager.Instance.CreatePlayerScoreGUI(this);
+    }
     public void ThrowBasketball() {
         var logId = "ThrowBasketball";
         logd(logId, "Starting to physically throw basketball!");
