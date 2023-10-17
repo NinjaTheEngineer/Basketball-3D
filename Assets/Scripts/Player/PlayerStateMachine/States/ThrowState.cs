@@ -17,19 +17,21 @@ public class ThrowState : BaseState<PlayerStateMachine.PlayerState> {
     }
 
     public override void UpdateState() {
+        if(!player.IsMine) {
+            return;
+        }
         if (player.PlayerInput.ThrowInput && !player.PowerMeter.IsRunning) {
             player.PowerMeter.StartMeter();
         } else if (player.PlayerInput.ThrowReleaseInput && player.PowerMeter.IsRunning) {
             var force = player.PowerMeter.StopMeter();
             player.PlayerThrower.SetThrowForce(force);
-            player.anim.SetBool("CanThrow", true);
+            player.anim.SetTrigger("Throw");
             startTime = Time.realtimeSinceStartup;
         }
     }
 
     public override void ExitState() {
         startTime = 0;
-        player.anim.SetBool("CanThrow", false);
         player.PlayerMovement.SetKinematic(false);
     }
 

@@ -11,6 +11,15 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Game.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/Loading.unity
+    guid: a4d1dca824ee77a4d80c47823c70735a
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 9181c02ceb0bf31438518bb77ed74a7c
+  - enabled: 1
+    path: Assets/Scenes/Duel.unity
+    guid: 5ceb70b7edc169a47912612064b2ee40
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 53738cb56dd3a324499e217db7e893b3,
       type: 2}

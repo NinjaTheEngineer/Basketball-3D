@@ -34,6 +34,9 @@ public class PlayerMovement : NinjaMonoBehaviour {
     }
     private void MovePlayer() {
         var logId = "MovePlayer";
+        if(!player.IsMine) {
+            return;
+        }
         var verticalInput = player.PlayerInput.VerticalInput;
         var horizontalInput = player.PlayerInput.HorizontalInput;
 

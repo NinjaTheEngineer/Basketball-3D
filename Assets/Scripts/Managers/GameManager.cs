@@ -6,11 +6,14 @@ using Cinemachine;
 using System;
 
 public class GameManager : NinjaMonoBehaviour {
+    public enum GameMode { SINGLE, DUEL }
     public static GameManager Instance;
     public AddressableInstantiator courtInstantiator, playerInstantiator;
     public Action OnGameStart;
     public Basketball basketball;
     public Basketball Basketball {get; private set; }
+    public GameMode CurrentGameMode { get; private set; }
+
     public Vector3 playerInitPos;
     public Vector3 secPlayerInitPos;
     public float basketballStartHeight = 5f;
@@ -29,25 +32,29 @@ public class GameManager : NinjaMonoBehaviour {
         }
     }
     public void LoadGame() {
+        SceneManager.Instance.OpenScene(SceneName.Game);
         StartCoroutine(LoadGameRoutine());
     }
-    private void StartGame() {
+    public void StartGame() {
         Basketball = Instantiate(basketball, new Vector3(0, basketballStartHeight, 0), Quaternion.identity);
         OnGameStart?.Invoke();
         AudioManager.Instance.PlayStartGameSound();
     }
     public float startGameRoutineIntervals = 0.1f;
     IEnumerator LoadGameRoutine() {
-        var waitForSeconds = new WaitForSeconds(startGameRoutineIntervals);
-        SceneManager.Instance.OpenScene(SceneName.Game);
-        
+        var waitForSeconds = new WaitForSeconds(startGameRoutineIntervals);        
         while(!SceneManager.Instance.SceneLoaded) {
             yield return waitForSeconds;
         }
         courtInstantiator.InstantiateAssetReference();
         playerInstantiator.InstantiateAssetReference(playerInitPos);
+        if(CurrentGameMode==GameMode.DUEL) {
+            yield break;
+        }
         StartGame();
     }
 
     public void RestartGame() => LoadGame();
+
+    public void SetDuel() => CurrentGameMode=GameMode.DUEL;
 }

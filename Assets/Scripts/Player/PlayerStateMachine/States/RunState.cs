@@ -9,8 +9,7 @@ public class RunState : BaseState<PlayerStateMachine.PlayerState> {
         this.player = player;
     }
 
-    public override void EnterState()
-    {
+    public override void EnterState() {
     }
 
     public override void UpdateState() {

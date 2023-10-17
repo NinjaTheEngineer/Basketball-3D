@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using NinjaTools;
 using UnityEngine;
+using Photon.Pun;
 
 public class Player : NinjaMonoBehaviour {
     [field: SerializeField] public PlayerStateMachine PlayerStateMachine { get; private set; }
@@ -11,11 +12,10 @@ public class Player : NinjaMonoBehaviour {
     [field: SerializeField] public PlayerPointer PlayerPointer { get; private set; }
     [field: SerializeField] public PowerMeter PowerMeter { get; private set;}
     [field: SerializeField] public Basketball CurrentBasketball { get; private set; }
+    [field: SerializeField] public PhotonView PlayerPhotonView { get; private set; }
     public BasketballHolder basketballHolder;
     public Transform ballPickupPos;
     public Animator anim;
-    [SerializeField] GameObject playerCamera;
-    public float score = 0;
     public float threePointDistance = 5.5f;
     public float distanceFromThrow;
     public static Action<Player, int> OnPlayerScore;
@@ -44,12 +44,16 @@ public class Player : NinjaMonoBehaviour {
         PlayerThrower = GetComponent<PlayerThrower>();
         PlayerPointer = GetComponent<PlayerPointer>();
         anim = GetComponentInChildren<Animator>();
+        PlayerPhotonView = GetComponent<PhotonView>();
     }
     private void Start() {
         UIManager.Instance.CreatePlayerScoreGUI(this);
     }
     public void ThrowBasketball() {
         var logId = "ThrowBasketball";
+        if(!IsMine) {
+            return;
+        }
         logd(logId, "Starting to physically throw basketball!");
         basketballHolder.HideBasketball();
         lastThrowPos = transform.position;
@@ -73,10 +77,16 @@ public class Player : NinjaMonoBehaviour {
     }
     public void HideMeter() => StartCoroutine(HideMeterRoutine());
     public void ShowMeterRoutine() {
+        if(!IsMine) {
+            return;
+        }
         PowerMeter.gameObject.SetActive(true);
     }
     public void PickUpBall(Basketball basketball) {
         var logId = "PickUpBall";
+        if(!IsMine) {
+            return;
+        }
         if (basketball == null) {
             logw(logId, "Basketball is null => no-op");
             return;
@@ -114,4 +124,18 @@ public class Player : NinjaMonoBehaviour {
         } 
     }
 
+    public bool IsMine {
+        get {
+            //PlayerPhotonView == null ? true : PlayerPhotonView.IsMine || GameManager.Instance.CurrentGameMode == GameManager.GameMode.SINGLE;
+            var logId = "IsMine_get";
+            if(PlayerPhotonView == null) {
+                logd(logId, "PlayerPhotonView is null => return true");
+                return true;
+            }
+            var isMine = PlayerPhotonView.IsMine;
+            var isSinglePlayer = GameManager.Instance.CurrentGameMode == GameManager.GameMode.SINGLE;
+            logd(logId, "IsMine="+isMine+" CurrentGameMode="+ GameManager.Instance.CurrentGameMode+" isSinglePlayer = "+isSinglePlayer);
+            return isMine||isSinglePlayer;
+        }
+    }
 }
